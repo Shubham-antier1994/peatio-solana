@@ -41,8 +41,11 @@ module Peatio
         }.compact).fetch(:txnhash)
 
         transaction.hash = txid
+        Rails.logger.warn{"===============txid=================#{txid}"}
+        Rails.logger.warn{"===============transaction=================#{transaction.inspect}"}
         transaction
       rescue Solana::Client::Error => e
+        Rails.logger.warn{"===============error=================#{e}"}
         raise Peatio::Wallet::ClientError, e
       end
 

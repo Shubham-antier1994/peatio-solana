@@ -66,6 +66,7 @@ module Peatio
         response.assert_success!
         response = JSON.parse(response.body)
         response['error'].tap { |error| raise ResponseError.new(error) if error }
+        Rails.logger.warn{"===============response.dig('data')=================#{response.dig('data')}"}
         response.dig('data').deep_symbolize_keys!
       rescue Faraday::Error => e
         if e.is_a?(Faraday::ConnectionFailed) || e.is_a?(Faraday::TimeoutError)

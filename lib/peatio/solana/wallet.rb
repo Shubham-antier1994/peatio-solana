@@ -33,7 +33,9 @@ module Peatio
       end
 
       def create_transaction!(transaction, options = {})
+        Rails.logger.warn{"===============transaction=================#{transaction.inspect}"}
         amount = convert_to_base_unit(transaction.amount)
+        Rails.logger.warn{"===============amount=================#{amount}"}
         txid = client.rest_api(:post, 'generateTransaction', {
           toAddress: normalize_address(transaction.to_address.to_s),
           amtTobeTransferred: amount.to_s,
@@ -42,7 +44,6 @@ module Peatio
 
         transaction.hash = txid
         Rails.logger.warn{"===============txid=================#{txid}"}
-        Rails.logger.warn{"===============transaction=================#{transaction.inspect}"}
         transaction
       rescue Solana::Client::Error => e
         Rails.logger.warn{"===============error=================#{e}"}

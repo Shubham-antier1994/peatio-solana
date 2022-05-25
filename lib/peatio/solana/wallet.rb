@@ -36,14 +36,13 @@ module Peatio
         Rails.logger.warn{"===============transaction=================#{transaction.inspect}"}
         amount = convert_to_base_unit(transaction.amount)
         Rails.logger.warn{"===============amount=================#{amount}"}
+        Rails.logger.warn{"===============client=================#{client.inspect}"}
         txid = client.rest_api(:post, 'generateTransaction', {
           toAddress: normalize_address(transaction.to_address.to_s),
           amtTobeTransferred: amount.to_s,
           fromMnemonics: wallet_passphrase
         }.compact).fetch(:txnhash)
-
         transaction.hash = txid
-        Rails.logger.warn{"===============txid=================#{txid}"}
         transaction
       rescue Solana::Client::Error => e
         Rails.logger.warn{"===============error=================#{e}"}

@@ -5,6 +5,7 @@ module Peatio
 
       DEFAULT_FEATURES = { skip_deposit_collection: false }.freeze
       SUPPORTED_FEATURES = %i[skip_deposit_collection].freeze
+      DEFAULT_SOLANA_FEE = { gas_price: 5000 }.freeze
 
       def initialize(custom_features = {})
         @features = DEFAULT_FEATURES.merge(custom_features).slice(*SUPPORTED_FEATURES)
@@ -34,6 +35,9 @@ module Peatio
 
       def create_transaction!(transaction, options = {})
         amount = convert_to_base_unit(transaction.amount)
+        currency_options = @currency.fetch(:options).slice(:gas_price)
+        options.merge!(DEFAULT_SOLANA_FEE, currency_options)
+        amount -=  options.fetch(:gas_price).to_i if options.dig(:subtract_fee)
         txid = client.rest_api(:post, 'generateTransaction', {
           toAddress: normalize_address(transaction.to_address.to_s),
           amtTobeTransferred: amount.to_s,

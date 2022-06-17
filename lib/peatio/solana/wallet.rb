@@ -34,10 +34,13 @@ module Peatio
       end
 
       def create_transaction!(transaction, options = {})
+        Rails.logger.info{"================transaction=======amount before=======#{transaction.amount.to_s}======"}
         amount = convert_to_base_unit(transaction.amount)
         currency_options = @currency.fetch(:options).slice(:gas_price)
         options.merge!(DEFAULT_SOLANA_FEE, currency_options)
+        Rails.logger.info{"================options=======after=======#{options.inspect}======"}
         amount -=  options.fetch(:gas_price).to_i if options.dig(:subtract_fee)
+        Rails.logger.info{"================amount=====after=========#{amount.to_s}======"}
         txid = client.rest_api(:post, 'generateTransaction', {
           toAddress: normalize_address(transaction.to_address.to_s),
           amtTobeTransferred: amount.to_s,

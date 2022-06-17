@@ -34,6 +34,7 @@ module Peatio
       end
 
       def create_transaction!(transaction, options = {})
+        Rails.logger.info{"================options======before========#{options.inspect}======"}
         Rails.logger.info{"================transaction=======amount before=======#{transaction.amount.to_s}======"}
         amount = convert_to_base_unit(transaction.amount)
         currency_options = @currency.fetch(:options).slice(:gas_price)

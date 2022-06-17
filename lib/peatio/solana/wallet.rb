@@ -40,7 +40,8 @@ module Peatio
         currency_options = @currency.fetch(:options).slice(:gas_price)
         options.merge!(DEFAULT_SOLANA_FEE, currency_options)
         Rails.logger.info{"================DEFAULT_SOLANA_FEE==============#{DEFAULT_SOLANA_FEE}======"}
-        Rails.logger.info{"================currency_options==============#{currency_options.inspect}======"}
+        Rails.logger.info{"================currency_options========1======#{@currency.fetch(:options)}======"}
+        Rails.logger.info{"================currency_options========2======#{currency_options.inspect}======"}
         Rails.logger.info{"================options=======after=======#{options.inspect}======"}
         amount -=  options.fetch(:gas_price).to_i if options.dig(:subtract_fee)
         Rails.logger.info{"================amount=====after=========#{amount.to_s}======"}

@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     peatio-solana (0.1.0)
-      activesupport (~> 5.2.3)
+      activesupport (>= 5.2.3, < 7.0)
       better-faraday (~> 1.0.5)
       faraday (>= 0.17, < 3.0)
       memoist (~> 0.16.0)

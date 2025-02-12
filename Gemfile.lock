@@ -4,7 +4,7 @@ PATH
     peatio-solana (0.1.0)
       activesupport (~> 5.2.3)
       better-faraday (~> 1.0.5)
-      faraday (~> 0.17)
+      faraday (>= 0.17, < 3.0)
       memoist (~> 0.16.0)
       net-http-persistent (~> 4.0.4)
       peatio (>= 0.6.3)

@@ -26,10 +26,10 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "activesupport", "~> 5.2.3"
   spec.add_dependency "peatio", ">= 0.6.3"
-  spec.add_dependency "faraday", "~> 0.17"
   spec.add_dependency "memoist", "~> 0.16.0"
   spec.add_dependency "better-faraday", "~> 1.0.5"
   spec.add_dependency 'net-http-persistent', '~> 4.0.4'
+  spec.add_dependency 'faraday', '>= 0.17', '< 3.0'
 
   spec.add_development_dependency "bundler", "~> 1.17"
   spec.add_development_dependency "rake", "~> 13.0"
